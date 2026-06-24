@@ -1,8 +1,7 @@
 import type { NextFunction, Request, Response } from "express";
 
-import jwtService from "./jwt.service.js";
 import userService from "../../features/user/user.service.js";
-import type { userLocalData } from "./token.types.js";
+import jwtService from "./jwt.service.js";
 
 
 
