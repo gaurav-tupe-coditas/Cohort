@@ -56,6 +56,8 @@ export async function up(queryInterface, Sequelize) {
 
   await queryInterface.bulkInsert("rolepermission", rolePermRows,{transaction});
 
+  await queryInterface.bulkInsert('users',[{name:"Gaurav",email:"gaurav.tupe@coditas.com",password:'$2a$05$oHk7YrNCdCZ1C/ye7sN/kegFA2HzIbWzV5eLwLicoHb/bL3WyeeQO',role_id:roleMap['ADMIN']}],{transaction})
+
     await transaction.commit()
   } catch (error) {
     await transaction.rollback();

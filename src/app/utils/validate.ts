@@ -5,6 +5,7 @@ const check = (type: "body" | "params" | "query") =>
     (schema: ZodObject) =>
         (req: Request, res: Response, next: NextFunction) => {
             try {
+
                 req[type] = schema.parse(req[type]);
                
 
