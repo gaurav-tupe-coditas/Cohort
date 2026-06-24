@@ -4,13 +4,7 @@ import jwtService from "./jwt.service.js";
 import userService from "../../features/user/user.service.js";
 import type { userLocalData } from "./token.types.js";
 
-declare global {
-  namespace express {
-    interface Request {
-      user: userLocalData;
-    }
-  }
-}
+
 
 export const tokenValidation = async (
   req: Request,
@@ -32,7 +26,7 @@ export const tokenValidation = async (
     if (!user || user.password_version != userpayload.password_version)
       throw "User Not Found";
 
-    req.user= userpayload;
+    req.user = userpayload;
     next();
   } catch (error) {
     throw error;
