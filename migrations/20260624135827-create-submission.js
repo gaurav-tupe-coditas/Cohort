@@ -22,7 +22,7 @@ export async function up(queryInterface, Sequelize) {
       onDelete: "SET NULL"
     },
     student_id: {
-      type: Sequelize.TEXT,
+      type: Sequelize.UUID,
       allowNull: false,
       references: {
         model: "users",
