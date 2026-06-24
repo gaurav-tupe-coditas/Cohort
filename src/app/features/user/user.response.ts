@@ -13,7 +13,7 @@ export const USER_RESPONSE: Record<
   | "USER_NOT_UPDATED"
   | "USER_DELETED"
   | "USER_NOT_DELETED"
-  | "YOU_DONT_EXIST",
+,
   ResponseHandler
 > = {
   USER_NOT_FOUND: new ResponseHandler(
@@ -40,8 +40,5 @@ export const USER_RESPONSE: Record<
     null,
     new ErrorResponse(400, "USER NOT DELETED"),
   ),
-  YOU_DONT_EXIST: new ResponseHandler(
-    null,
-    new ErrorResponse(400, "YOU DONT EXIST"),
-  ),
+  
 };
