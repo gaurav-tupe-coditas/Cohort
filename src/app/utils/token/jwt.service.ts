@@ -31,7 +31,7 @@ const signAccessToken = (payload: Omit<AccessTokenPayload, "jti">): string => {
   return jwt.sign({ ...payload, jti }, privateKey, {
     algorithm: "RS256",
     expiresIn: "60m",
-    issuer: "trello-platform",
+    issuer: "cohort-platform",
     subject: payload.userId,
   });
 };
@@ -49,7 +49,7 @@ const signRefreshToken = (userId: string, password_version: number): string => {
     {
       algorithm: "RS256",
       expiresIn: "7d",
-      issuer: "trello-platform",
+      issuer: "cohort-platform",
       subject: userId,
     },
   );
@@ -58,14 +58,14 @@ const signRefreshToken = (userId: string, password_version: number): string => {
 const verifyAccessToken = (token: string): AccessTokenPayload => {
   return jwt.verify(token, publicKey, {
     algorithms: ["RS256"],
-    issuer: "trello-platform",
+    issuer: "cohort-platform",
   }) as AccessTokenPayload;
 };
 
 const verifyRefreshToken = (token: string): RefreshTokenPayload => {
   return jwt.verify(token, publicKey, {
     algorithms: ["RS256"],
-    issuer: "trello-platform",
+    issuer: "cohort-platform",
   }) as RefreshTokenPayload;
 };
 
