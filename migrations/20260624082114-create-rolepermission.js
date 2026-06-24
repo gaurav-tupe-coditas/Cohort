@@ -25,10 +25,12 @@ export async function up(queryInterface, Sequelize) {
     createdAt: {
       allowNull: false,
       type: Sequelize.DATE,
+      defaultValue: Sequelize.Sequelize.fn('now')
     },
     updatedAt: {
       allowNull: false,
       type: Sequelize.DATE,
+      allowNull:true
     },
   });
 }
