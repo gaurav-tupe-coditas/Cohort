@@ -6,7 +6,7 @@ export class UserSchmea extends Model<InferAttributes<UserSchmea>,InferCreationA
     declare name:string;
     declare email:string;
     declare password:string;
-    declare password_version:number;
+    declare password_version:CreationOptional<number>;
     declare role_id:string;
 }
 
