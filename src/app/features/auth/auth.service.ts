@@ -4,6 +4,7 @@ import userService from "../user/user.service.js"
 import { AUTH_RESPONSE } from "./auth.response.js"
 import type { AuthServiceLogIn, AuthServiceSignUp } from "./auth.types.js"
 import jwtService from "../../utils/token/jwt.service.js"
+import roleService from "../role and permissions/role/role.service.js"
 
 const login = async (LoginData:AuthServiceLogIn)=>{
     try {
@@ -13,7 +14,10 @@ const login = async (LoginData:AuthServiceLogIn)=>{
         const passwordMatched = await compare(LoginData.password,user.password)
         if(!passwordMatched) AUTH_RESPONSE.INVALID_CREDENTIALS.err
 
-        const accessToken = jwtService.signAccessToken({userId:user.id,email:user.email,name:user.name,role_id:user.role_id,password_version:user.password_version
+        const role = await roleService.findRole({id:user.role_id})
+        if(!role)throw "User Role doesn't exist"
+        const accessToken = jwtService.signAccessToken({userId:user.id,email:user.email,name:user.name,role_id:user.role_id,password_version:user.password_version,
+            role_name:role.name
         })
         const response = AUTH_RESPONSE.LOGIN_SUCCESSFULL
         return {accessToken,response}
@@ -25,8 +29,9 @@ const login = async (LoginData:AuthServiceLogIn)=>{
 
 const signup = async (SignUpData:AuthServiceSignUp)=>{
     try {
-        const student_role_id = "adfs"
-        const result = await userService.createUser({...SignUpData,role_id:student_role_id})
+        const studentRole = await roleService.findRole({name:"STUDENT"})
+        if(!studentRole)throw "Student Role doesn't exist"
+        const result = await userService.createUser({...SignUpData,role_id:studentRole.id})
         return result
     } catch (error) {
         throw error
