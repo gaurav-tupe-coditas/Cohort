@@ -1,5 +1,6 @@
 import { DataTypes, Model, type CreationOptional, type InferAttributes, type InferCreationAttributes } from "sequelize";
 import { sequelize } from "../../connection/pg.connection.js";
+import { RoleSchema } from "../role and permissions/role/role.schema.js";
 
 export class UserSchmea extends Model<InferAttributes<UserSchmea>,InferCreationAttributes<UserSchmea>>{
     declare id:CreationOptional<string>;
@@ -14,7 +15,9 @@ UserSchmea.init({
     id:{
         type:DataTypes.UUID,
         defaultValue:DataTypes.UUIDV4,
-        allowNull:false
+        allowNull:false,
+        primaryKey:true
+
     },
     name:{
         type:DataTypes.TEXT,
@@ -29,7 +32,7 @@ UserSchmea.init({
         allowNull:false
     },
     password_version:{
-        type:DataTypes.TEXT,
+        type:DataTypes.INTEGER,
         allowNull:false,
         defaultValue:0
     },
@@ -37,7 +40,7 @@ UserSchmea.init({
         type:DataTypes.UUID,
         allowNull:false,
         references:{
-            model:UserSchmea,
+            model:RoleSchema,
             key:"id"
         }
     }

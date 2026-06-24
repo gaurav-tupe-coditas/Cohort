@@ -44,7 +44,7 @@ RolePermissionSchema.init(
   },
   {
     sequelize,
-    tableName: "users",
+    tableName: "rolepermission",
     timestamps: true,
   },
 );

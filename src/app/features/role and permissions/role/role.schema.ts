@@ -20,6 +20,6 @@ RoleSchema.init({
     },
 },{
     sequelize,
-    tableName:"users",
+    tableName:"role",
     timestamps:true
 })

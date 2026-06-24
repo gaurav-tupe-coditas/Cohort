@@ -7,14 +7,14 @@ import { USER_RESPONSE } from "./user.response.js"
 const createUser = async(createUserData:UserServiceCreate)=>{
     try {
         const userExists = await findUser({email:createUserData.email})
-        if(userExists)throw USER_RESPONSE.USER_ALREADY_EXISTS
+        if(userExists)throw USER_RESPONSE.USER_ALREADY_EXISTS.err
         const hashedPassword = await hashPassword(createUserData.password)
         const userData = {...createUserData,password:hashedPassword}
         await userRepo.create(userData)
         return USER_RESPONSE.USER_CREATED
 
     } catch (error) {
-        return error
+        throw error
     }
 }
 

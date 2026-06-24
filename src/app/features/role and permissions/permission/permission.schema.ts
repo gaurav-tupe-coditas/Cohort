@@ -22,6 +22,6 @@ PermissionSchema.init({
     
 },{
     sequelize,
-    tableName:"users",
+    tableName:"permission",
     timestamps:true
 })
