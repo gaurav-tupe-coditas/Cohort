@@ -33,8 +33,9 @@ router.get("/course/:courseId",permissionHandler("manage-courses"),async(req:Req
     } catch (error) {
         next (error)
     }
+})
 
-    router.delete("/:courseId",permissionHandler("enroll-course"),async(req:Request,res:Response,next:NextFunction)=>{
+router.delete("/:courseId",permissionHandler("enroll-course"),async(req:Request,res:Response,next:NextFunction)=>{
         try {
             const course_id = <string>req.params["courseId"]
             await courseenrollmentService.disenroll(req.user.userId,course_id)
@@ -43,6 +44,5 @@ router.get("/course/:courseId",permissionHandler("manage-courses"),async(req:Req
             next(error)
         }
     })
-})
 
 export default new Route("/enrollment",router)

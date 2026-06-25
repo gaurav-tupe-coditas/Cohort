@@ -21,7 +21,8 @@ const findEnrollment = async(where:Partial<{student_id:string;course_id:string,i
     }
     const findAllEnrollments = async(where:Partial<{student_id:string;course_id:string}>)=>{
         try {
-            const result = courseenrollmentRepo.findAll({where})
+            const result = await courseenrollmentRepo.findAll({where})
+            return result
         } catch (error) {
             throw error
         }

@@ -7,6 +7,7 @@ import {
 } from "sequelize";
 import { sequelize } from "../../connection/pg.connection.js";
 import { UserSchmea } from "../user/user.schema.js";
+import { CourseSchema } from "../course/course.schema.js";
 
 export class CourseEnrollmentSchema extends Model<
   InferAttributes<CourseEnrollmentSchema>,
@@ -37,7 +38,7 @@ CourseEnrollmentSchema.init(
       type: DataTypes.UUID,
       allowNull: false,
       references: {
-        model: UserSchmea,
+        model: CourseSchema,
         key: "id",
       },
     },

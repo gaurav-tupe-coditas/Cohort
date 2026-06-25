@@ -6,10 +6,10 @@ import { ROLE_PERMISSION_RESPONSE } from "./rolepermission.response.js"
 
 const create = async(createData:{role_id:string,permission_id:string})=>{
 try {
-    const role = roleService.findRole({id:createData.role_id})
-    const permission = permissionService.findPermission({id:createData.permission_id})
+    const role = await roleService.findRole({id:createData.role_id})
+    const permission = await permissionService.findPermission({id:createData.permission_id})
 
-    if(!role || !permission)throw  ROLE_PERMISSION_RESPONSE
+    if(!role || !permission)throw  ROLE_PERMISSION_RESPONSE.INVALID_ROLE_OR_PERMISSION.err
 
     const result = rolepermissionRepo.create(createData.role_id,createData.permission_id)
     return result

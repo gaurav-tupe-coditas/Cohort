@@ -11,6 +11,7 @@ export const tokenValidation = async (
   next: NextFunction,
 ) => {
   try {
+    if(req.path.startsWith("/auth"))return next();
     let accessToken = req.cookies["accessToken"];
 
     if (!accessToken && req.headers.authorization?.startsWith("Bearer ")) {
@@ -28,6 +29,6 @@ export const tokenValidation = async (
     req.user = userpayload;
     next();
   } catch (error) {
-    throw error;
+    next (error)
   }
 };

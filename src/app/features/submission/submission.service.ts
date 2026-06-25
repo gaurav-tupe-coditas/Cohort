@@ -24,7 +24,7 @@ const getSubmission = async(id:string,student_id?:string)=>{
         const where:Record<string,string> = {id}
         if(student_id){ where["student_id"]=student_id}
 
-        const submission = await submissionRepo.findOne(where)
+        const submission = await submissionRepo.findOne({where})
 
         if(!submission) throw new ErrorResponse(404,"Submission not found")
             return submission

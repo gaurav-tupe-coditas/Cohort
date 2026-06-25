@@ -4,6 +4,7 @@ import { permissionHandler } from "../role and permissions/permission.handler.js
 import { body, params } from "../../utils/validate.js";
 import { ZUserRouterCreate, ZUserRouterFindUser, ZUserUpdateObject,  } from "./user.types.js";
 import userService from "./user.service.js";
+import { ErrorResponse, ResponseData, ResponseHandler } from "../../utils/response-handler.js";
 
 
 const router = Router()
@@ -11,7 +12,8 @@ const router = Router()
 router.get("/:id",params(ZUserRouterFindUser),permissionHandler("find-user"),async(req:Request,res:Response,next:NextFunction)=>{
     try {
         const id = req.params.id as string
-        return await userService.findUser({id})
+        const response= await userService.findUser({id})
+        res.status(200).send(new ResponseHandler(new ResponseData(200,response)))
     } catch (error) {
         next(error)
     }
@@ -19,7 +21,8 @@ router.get("/:id",params(ZUserRouterFindUser),permissionHandler("find-user"),asy
 
 router.post("/",body(ZUserRouterCreate),permissionHandler("create-user"),async(req:Request,res:Response,next:NextFunction)=>{
     try {
-        return await userService.createUser(req.body)
+        const repsonse= await userService.createUser(req.body)
+        res.status(200).send(new ResponseHandler(new ResponseData(200,"User Created")))
     } catch (error) {
         next(error)
     }
@@ -28,7 +31,8 @@ router.post("/",body(ZUserRouterCreate),permissionHandler("create-user"),async(r
 router.delete("/:id",params(ZUserRouterFindUser),permissionHandler("delete-user"),async(req:Request,res:Response,next:NextFunction)=>{
     try {
         const id = req.params.id as string
-        return await userService.deleteUser(id )
+        const response =await userService.deleteUser(id )
+        res.status(200).send(new ResponseHandler(new ResponseData(200,"User deleted")))
     } catch (error) {
         next(error)
     }

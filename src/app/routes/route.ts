@@ -17,7 +17,7 @@ export const registerMiddlewares = (app: Application) => {
 
   app.use(cookieParser());
 
-
+  app.use(tokenValidation)
 
   for (const route of ROUTES) {
     app.use(route.path, route.router);

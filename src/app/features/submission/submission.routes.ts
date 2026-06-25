@@ -9,7 +9,7 @@ import { Route } from "../../routes/route.types.js";
 
 const router = Router()
 
-router.post("/",permissionHandler("submit-assginment"),upload.single("file"),body(ZSubmisisonCreate),async(req:Request,res:Response,next:NextFunction)=>{
+router.post("/",permissionHandler("submit-assignment"),upload.single("file"),body(ZSubmisisonCreate),async(req:Request,res:Response,next:NextFunction)=>{
     try {
         if(!req.file) throw new ErrorResponse(400,"Submission File not uploaded")
         const url = req.file.path
@@ -34,7 +34,7 @@ router.get("/my",permissionHandler("submit-assignment"),async(req:Request,res:Re
 
 router.get("/assignment/:assignmentId",permissionHandler("manage-courses"),params(ZAssignmentParams),async(req:Request,res:Response,next:NextFunction)=>{
     try {
-        const assignment_id = <string>req.params["assignementId"]
+        const assignment_id = <string>req.params["assignmentId"]
         const response = submissionService.getSubmissionsForAssignment(assignment_id)
         res.status(200).send(new ResponseHandler(new ResponseData(200,response)))
     } catch (error) {

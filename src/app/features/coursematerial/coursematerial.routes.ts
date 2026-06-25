@@ -4,14 +4,17 @@ import { permissionHandler } from "../role and permissions/permission.handler.js
 import { ZCourseMaterialCreate, ZCourseMaterialParams, ZCourseParams } from "./coursematerial.types.js"
 import { instructorOwns, studentEnrolled } from "../../utils/scoping.js"
 import coursematerialService from "./coursematerial.service.js"
-import { ResponseData, ResponseHandler } from "../../utils/response-handler.js"
+import { ErrorResponse, ResponseData, ResponseHandler } from "../../utils/response-handler.js"
 import { Route } from "../../routes/route.types.js"
+import { upload } from "../../utils/multer.js"
 
 const router = Router()
 
-router.post("/",permissionHandler("manage-courses"),body(ZCourseMaterialCreate),instructorOwns,async(req:Request,res:Response,next:NextFunction)=>{
+router.post("/",permissionHandler("manage-courses"),upload.single("file"),body(ZCourseMaterialCreate),instructorOwns,async(req:Request,res:Response,next:NextFunction)=>{
     try {
-        const announcement = await coursematerialService.createCourseMaterial(req.body)
+        if(!req.file)throw new ErrorResponse(400,"File not uploaded")
+        const url = req.file.path
+        const announcement = await coursematerialService.createCourseMaterial({...req.body,url})
         res.status(201).send(new ResponseHandler(new ResponseData(201,announcement)))
     } catch (error) {
         next(error)
@@ -38,4 +41,4 @@ router.delete("/:announcementId",permissionHandler("manage-courses"),params(ZCou
     }
 })
 
-export default new Route("/announcement",router)
+export default new Route("/coursematerial",router)

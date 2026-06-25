@@ -9,7 +9,7 @@ const findAll = (findOptions:FindOptions<Attributes<CourseSchema>>)=>CourseSchem
 
 const update = (data:Partial<{name:string;description:string;instructor_id:string}>,findOpts:UpdateOptions<Attributes<CourseSchema>>)=>CourseSchema.update(data,findOpts)
 
-const destroy = (findOptions:FindOptions<Attributes<CourseSchema>>)=>CourseSchema.destroy()
+const destroy = (findOptions:FindOptions<Attributes<CourseSchema>>)=>CourseSchema.destroy(findOptions)
 
 export default{
     create,findOne,findAll,update,destroy
