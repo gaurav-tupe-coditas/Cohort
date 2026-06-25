@@ -42,7 +42,7 @@ router.get("/assignment/:assignmentId",permissionHandler("manage-courses"),param
     }
 })
 
-//same here also a scoper is requiered to check whether the assignment is for the grade present 
+//same here also a scoper is requiered to check whether the assignment is for the course present 
 router.patch("/:submissionId/grade",permissionHandler("manage-courses"),params(ZSubmissionParams),body(ZGrade),async(req:Request,res:Response,next:NextFunction)=>{
     try {
         const id = <string>req.params["submissionId"]

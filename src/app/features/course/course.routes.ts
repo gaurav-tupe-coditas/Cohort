@@ -57,23 +57,23 @@ router.patch(
     } catch (error) {
       next(error);
     }
+  },
+);
 
-    router.delete(
-      "/:courseId",
-      permissionHandler("manage-courses"),
-      params(ZCourseFindParams),
-      async (req: Request, res: Response, next: NextFunction) => {
-        try {
-          const course_id = <string>req.params["courseId"];
-          const response = await courseService.deleteCourse(course_id);
-          res
-            .status(200)
-            .send(new ResponseHandler(new ResponseData(200, "Course deleted")));
-        } catch (error) {
-          next(error);
-        }
-      },
-    );
+router.delete(
+  "/:courseId",
+  permissionHandler("manage-courses"),
+  params(ZCourseFindParams),
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const course_id = <string>req.params["courseId"];
+      const response = await courseService.deleteCourse(course_id);
+      res
+        .status(200)
+        .send(new ResponseHandler(new ResponseData(200, "Course deleted")));
+    } catch (error) {
+      next(error);
+    }
   },
 );
 

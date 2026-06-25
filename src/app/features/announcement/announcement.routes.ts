@@ -18,6 +18,8 @@ router.post("/",permissionHandler("manage-courses"),body(ZAnnouncementCreate),in
     }
 })
 
+
+//add permission to check whether they can view the announcements
 router.get("/course/:courseId",params(ZCourseParams),studentEnrolled,async(req:Request,res:Response,next:NextFunction)=>{
     try {
         const course_id=<string>req.params["courseId"]
