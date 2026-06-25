@@ -15,4 +15,4 @@ export const ZCourseParams = z.object({courseId:z.uuid()})
 
 
 export type AssignmentCreate = {name:string,description?:string,course_id:string,deadline?:Date}
-export type AssignmentUpdate = Omit<AssignmentCreate,"course_id">
+export type AssignmentUpdate = Partial<Omit<AssignmentCreate,"course_id">>

@@ -18,8 +18,9 @@ export class SubmissionSchema extends Model<
   declare assignment_id: string;
   declare student_id: string;
   declare url: string;
-  declare grade: string;
-  declare submission_time: Date;
+  declare grade: CreationOptional<number>;
+  declare feedback:CreationOptional<string>;
+  declare submission_time: CreationOptional<Date>;
 }
 
 SubmissionSchema.init(
@@ -54,6 +55,10 @@ SubmissionSchema.init(
     grade: {
       type: DataTypes.INTEGER,
       allowNull: true,
+    },
+    feedback:{
+        type:DataTypes.TEXT,
+        allowNull:true
     },
     submission_time: {
       type: DataTypes.DATE,

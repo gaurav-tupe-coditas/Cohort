@@ -1,15 +1,20 @@
+import type { Attributes, FindOptions, UpdateOptions } from "sequelize"
 import { SubmissionSchema } from "./submission.schema.js"
 
-const create = ()=>SubmissionSchema.create()
+const create = (data:{
+    assignment_id:string,
+    student_id:string,
+    url:string,
+})=>SubmissionSchema.create(data)
 
-const findOne = ()=>SubmissionSchema.findOne()
+const findOne = (findOpts:FindOptions<Attributes<SubmissionSchema>>)=>SubmissionSchema.findOne(findOpts)
 
-const findAll = ()=>SubmissionSchema.findAll()
+const findAll = (findOpts:FindOptions<Attributes<SubmissionSchema>>)=>SubmissionSchema.findAll(findOpts)
 
-const update = ()=>SubmissionSchema.update()
+const update = (data:Partial<{grade:number,feedback:string}>,opts:UpdateOptions<Attributes<SubmissionSchema>>)=>SubmissionSchema.update(data,opts)
 
-const destroy = ()=>SubmissionSchema.destroy()
+
 
 export default{
-    create,findOne,findAll,update,destroy
+    create,findOne,findAll,update
 }
