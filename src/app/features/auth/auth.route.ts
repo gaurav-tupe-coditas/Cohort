@@ -2,6 +2,7 @@ import { Router, type NextFunction, type Request, type Response } from "express"
 import { body } from "../../utils/validate.js";
 import { ZAuthRouterLogIn, ZAuthRouterSignUp } from "./auth.types.js";
 import authService from "./auth.service.js";
+import { Route } from "../../routes/route.types.js";
 
 const router = Router()
 
@@ -23,3 +24,5 @@ try {
  next(error)
 }
 })
+
+export default new Route("/auth",router)

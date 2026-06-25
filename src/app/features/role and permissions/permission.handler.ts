@@ -10,9 +10,10 @@ export const permissionHandler =
      const permission = await permissionService.findPermission({name:permissionName})
      if(!permission)throw PERMISSION_HANDLER_RESPONSE.PERMISSION_DOESNT_EXIST.err
      const userHasPermission = await rolepermissionService.findOne({permission_id:permission.id,role_id:req.user.role_id})
-     if(userHasPermission)next()
-        throw PERMISSION_HANDLER_RESPONSE.UNAUTHORIZED_ACCESS.err
+     if(!userHasPermission) throw PERMISSION_HANDLER_RESPONSE.UNAUTHORIZED_ACCESS.err
+
+     next()
     } catch (error) {
-        throw error
+        next(error)
     }
   };

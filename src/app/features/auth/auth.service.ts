@@ -12,7 +12,7 @@ const login = async (LoginData:AuthServiceLogIn)=>{
 
         if(!user)throw AUTH_RESPONSE.INVALID_CREDENTIALS.err
         const passwordMatched = await compare(LoginData.password,user.password)
-        if(!passwordMatched) AUTH_RESPONSE.INVALID_CREDENTIALS.err
+        if(!passwordMatched)throw AUTH_RESPONSE.INVALID_CREDENTIALS.err
 
         const role = await roleService.findRole({id:user.role_id})
         if(!role)throw "User Role doesn't exist"
