@@ -1,16 +1,17 @@
+import type { Attributes, FindOptions } from "sequelize";
 import { CourseMaterialSchema } from "./coursematerial.schema.js"
 
 
-const create = ()=>CourseMaterialSchema.create()
+const create = (data:{course_id:string,name:string;description:string,url:string})=>CourseMaterialSchema.create(data)
 
-const findOne = ()=>CourseMaterialSchema.findOne()
+const findOne = (findOpts:FindOptions<Attributes<CourseMaterialSchema>>)=>CourseMaterialSchema.findOne(findOpts)
 
-const findAll = ()=>CourseMaterialSchema.findAll()
+const findAll = (findOpts:FindOptions<Attributes<CourseMaterialSchema>>)=>CourseMaterialSchema.findAll(findOpts)
 
-const update = ()=>CourseMaterialSchema.update()
 
-const destroy = ()=>CourseMaterialSchema.destroy()
+
+const destroy = (findOpts:FindOptions<Attributes<CourseMaterialSchema>>)=>CourseMaterialSchema.destroy(findOpts)
 
 export default{
-    create,findOne,findAll,update,destroy
+    create,findOne,findAll,destroy
 }
