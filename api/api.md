@@ -1,7 +1,7 @@
 
 # Auth
 
-POST /login
+POST /auth/login
 ----
   User login, 
 * **URL Params**  
@@ -37,7 +37,7 @@ POST /login
 ```
 ----
  
-POST /signup
+POST /auth/signup
 ----
   User login, 
 * **URL Params**  
@@ -91,5 +91,5 @@ POST /signup
 }
 
 ```
-----
+
  

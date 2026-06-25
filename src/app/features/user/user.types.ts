@@ -9,12 +9,12 @@ export type UserRepoFindOptions = FindOptions<
 export type UserRepoUpdateDataOptions = UserRepoCreateData;
 
 export const ZUserObject = z.object({
-  id: z.uuid(),
-  name: z.string(),
-  email: z.email(),
-  password: z.string(),
+  id: z.uuid("UUID should be in proper format"),
+  name: z.string("Name must be string"),
+  email: z.email("Email should be in proper format"),
+  password: z.string("Password should be string of length between 8 to 20").min(8).max(20),
   password_version: z.number(),
-  role_id: z.uuid(),
+  role_id: z.uuid("Valid UUID must be provided"),
 });
 
 export const ZUpdateDetailsObject = ZUserObject.omit({
@@ -57,8 +57,8 @@ export const ZUserRouterFindUser = z.object({
 export type UserServiceCreate = z.infer<typeof ZUserRouterCreate>;
 
 export const ZUserUpdateObject = z.object({
-  updateDetails: ZUpdateDetailsObject,
-  findDetails: ZFindUserData,
+  updateDetails: ZUpdateDetailsObject.partial(),
+  findDetails: ZFindUserData.partial(),
 });
 
 export type UserUpdateData = z.infer<typeof ZUserUpdateObject>;
