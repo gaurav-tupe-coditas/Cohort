@@ -25,6 +25,6 @@ export const registerMiddlewares = (app: Application) => {
   app.use((err: ErrorResponse, req: Request, res: Response, next: NextFunction) => {
     res
       .status(err.statusCode || 500)
-      .send(new ResponseHandler(null, err.message));
+      .send(new ResponseHandler(null, new ErrorResponse(400,err.message,err.issues)));
   });
 };

@@ -23,10 +23,10 @@ export const ZUpdateDetailsObject = ZUserObject.omit({
 });
 
 export const ZUserRouterCreate = z.object({
-  name: z.string(),
-  email: z.email(),
-  password: z.string(),
-  role_id: z.uuid(),
+  name: z.string("Name should be a valid string"),
+ email: z.email("Email should be in proper format"),
+  password: z.string("Password should be string of length between 8 to 20").min(8).max(20),
+  role_id: z.uuid("Invalid role id"),
 });
 
 export const orderby_values = z.union([
