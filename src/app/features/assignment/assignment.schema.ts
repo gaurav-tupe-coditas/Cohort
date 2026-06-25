@@ -15,9 +15,9 @@ export class AssignmentSchema extends Model<
   declare id: CreationOptional<string>;
   declare name: string;
   
-  declare description: string;
+  declare description: CreationOptional<string>;
   declare course_id: string;
-  declare deadline: Date;
+  declare deadline: CreationOptional<Date>;
 }
 
 AssignmentSchema.init(
