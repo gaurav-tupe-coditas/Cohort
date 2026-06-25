@@ -1,16 +1,17 @@
+import type { Attributes, FindOptions } from "sequelize";
 import { CourseEnrollmentSchema } from "./courseenrollment.schema.js"
 
 
-const create = ()=>CourseEnrollmentSchema.create()
+const create = (data:{student_id:string;course_id:string})=>CourseEnrollmentSchema.create(data)
 
-const findOne = ()=>CourseEnrollmentSchema.findOne()
+const findOne = (findOpts:FindOptions<Attributes<CourseEnrollmentSchema>>)=>CourseEnrollmentSchema.findOne(findOpts)
 
-const findAll = ()=>CourseEnrollmentSchema.findAll()
+const findAll = (findOpts:FindOptions<Attributes<CourseEnrollmentSchema>>)=>CourseEnrollmentSchema.findAll(findOpts)
 
-const update = ()=>CourseEnrollmentSchema.update()
 
-const destroy = ()=>CourseEnrollmentSchema.destroy()
+
+const destroy = (findOpts:FindOptions<Attributes<CourseEnrollmentSchema>>)=>CourseEnrollmentSchema.destroy(findOpts)
 
 export default{
-    create,findOne,findAll,update,destroy
+    create,findOne,findAll,destroy
 }

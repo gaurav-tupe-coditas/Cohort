@@ -15,3 +15,5 @@ export const ZCourseUpdate = z.object({
 
 
 export type CourseUpdate = Partial<{name:string,description:string}>
+
+export const ZCourseFindParams = z.object({courseId:z.uuid()})

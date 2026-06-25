@@ -1,7 +1,7 @@
 import { Router, type NextFunction, type Request, type Response } from "express";
 import { permissionHandler } from "../role and permissions/permission.handler.js";
 import { body, params } from "../../utils/validate.js";
-import { ZCourseCreate } from "./course.types.js";
+import { ZCourseCreate, ZCourseFindParams } from "./course.types.js";
 import courseService from "./course.service.js";
 import { ResponseData, ResponseHandler } from "../../utils/response-handler.js";
 import { tokenValidation } from "../../utils/token/token.validation.js";
