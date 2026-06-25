@@ -6,7 +6,7 @@ export type UserRepoFindOptions = FindOptions<
   Omit<Attributes<UserSchmea>, "password">
 >;
 
-export type UserRepoUpdateDataOptions = UserRepoCreateData;
+export type UserRepoUpdateDataOptions = Partial<UserRepoCreateData>;
 
 export const ZUserObject = z.object({
   id: z.uuid("UUID should be in proper format"),
@@ -20,7 +20,7 @@ export const ZUserObject = z.object({
 export const ZUpdateDetailsObject = ZUserObject.omit({
   id: true,
   password_version: true,
-});
+}).partial();
 
 export const ZUserRouterCreate = z.object({
   name: z.string("Name should be a valid string"),
@@ -37,8 +37,8 @@ export const orderby_values = z.union([
 
 export const ZFindAllUserData = z.object({
   where: ZUserObject.omit({ password: true }).partial().default({}),
-  limit: z.number().default(10),
-  offset: z.number().default(0),
+  limit: z.number("Limit should be a number").default(10),
+  offset: z.number("Offset should be a number").default(0),
   order: orderby_values.optional(),
   group: orderby_values.optional(),
 });
@@ -57,8 +57,8 @@ export const ZUserRouterFindUser = z.object({
 export type UserServiceCreate = z.infer<typeof ZUserRouterCreate>;
 
 export const ZUserUpdateObject = z.object({
-  updateDetails: ZUpdateDetailsObject.partial(),
-  findDetails: ZFindUserData.partial(),
+  updateDetails: ZUpdateDetailsObject,
+  findDetails: ZFindUserData,
 });
 
 export type UserUpdateData = z.infer<typeof ZUserUpdateObject>;

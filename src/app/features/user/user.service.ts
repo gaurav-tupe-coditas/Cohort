@@ -4,6 +4,7 @@ import userRepo from "./user.repo.js";
 import type {
   FindAllUserData,
   FindUserData,
+  UserRepoUpdateDataOptions,
   UserServiceCreate,
   UserUpdateData,
 } from "./user.types.js";
@@ -66,10 +67,13 @@ const deleteUser = async (id: string) => {
 
 const updateUser = async (updateDetails: UserUpdateData) => {
   try {
-    const result = userRepo.update(updateDetails.updateDetails, {
-      where: updateDetails.findDetails,
-    });
-    return result;
+    const result = userRepo.update(
+      updateDetails.updateDetails as UserRepoUpdateDataOptions,
+      {
+        where: updateDetails.findDetails,
+      },
+    );
+    return USER_RESPONSE.USER_UPDATED;
   } catch (error) {
     throw error;
   }

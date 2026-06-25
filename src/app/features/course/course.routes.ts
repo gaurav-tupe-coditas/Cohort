@@ -4,14 +4,13 @@ import {
   type Request,
   type Response,
 } from "express";
-import { permissionHandler } from "../role and permissions/permission.handler.js";
-import { body, params } from "../../utils/validate.js";
-import { ZCourseCreate, ZCourseFindParams } from "./course.types.js";
-import courseService from "./course.service.js";
-import { ResponseData, ResponseHandler } from "../../utils/response-handler.js";
-import { tokenValidation } from "../../utils/token/token.validation.js";
-import { instructorOwns } from "../../utils/scoping.js";
 import { Route } from "../../routes/route.types.js";
+import { ResponseData, ResponseHandler } from "../../utils/response-handler.js";
+import { instructorOwns } from "../../utils/scoping.js";
+import { body, params } from "../../utils/validate.js";
+import { permissionHandler } from "../role and permissions/permission.handler.js";
+import courseService from "./course.service.js";
+import { ZCourseCreate, ZCourseFindParams } from "./course.types.js";
 
 const router = Router();
 
