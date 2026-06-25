@@ -1,16 +1,17 @@
+
+import type { Attributes, FindOptions } from "sequelize";
 import { AnnouncementSchema } from "./announcement.schema.js"
 
 
-const create = ()=>AnnouncementSchema.create()
+const create = (data:{course_id:string,title:string;description:string})=>AnnouncementSchema.create(data)
 
-const findOne = ()=>AnnouncementSchema.findOne()
+const findOne = (findOpts:FindOptions<Attributes<AnnouncementSchema>>)=>AnnouncementSchema.findOne(findOpts)
 
-const findAll = ()=>AnnouncementSchema.findAll()
 
-const update = ()=>AnnouncementSchema.update()
+const findAll = (findOpts:FindOptions<Attributes<AnnouncementSchema>>)=>AnnouncementSchema.findAll(findOpts)
 
-const destroy = ()=>AnnouncementSchema.destroy()
+const destroy = (findOpts:FindOptions<Attributes<AnnouncementSchema>>)=>AnnouncementSchema.destroy(findOpts)
 
 export default{
-    create,findOne,findAll,update,destroy
+    create,findOne,destroy,findAll
 }
