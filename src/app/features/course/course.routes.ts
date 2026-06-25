@@ -21,7 +21,7 @@ router.post(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const course = await courseService.createCourse(req.body);
-      res.status(201).send(new ResponseHandler(new ResponseData(201, course)));
+      res.status(201).send(course);
     } catch (error) {
       next(error);
     }

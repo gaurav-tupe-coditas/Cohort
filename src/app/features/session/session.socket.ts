@@ -29,9 +29,26 @@ export const SessionHandler = (server:Server)=>{
             answerQuestion(courseId,questionId,answer)
         })
     }
-    const emitQuestion
+    const emitQuestion =(questionData:{courseId:string,questionObj:Question})=>{
+        try {
+            const session = courseToSession.get(questionData.courseId)
+            if(!session)throw "No Session with this course"
+            session.emit("question",questionData.questionObj)
+        } catch (error) {
+            throw error
+        }
+    }
+    const emitAnswer = (courseId:string,questionId:string,answer:string)=>{
+        try {
+            const session = courseToSession.get(courseId)
+            if(!session)throw "No Session with this course"
+            session.emit("answer",{questionId,answer})
+        } catch (error) {
+            throw error
+        }
+    }
     return {
-        createSession,courseToSession,
+        createSession,courseToSession,emitAnswer,emitQuestion
     }
 
    

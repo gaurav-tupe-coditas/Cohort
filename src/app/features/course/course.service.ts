@@ -1,10 +1,12 @@
 import { where } from "sequelize"
 import courseRepo from "./course.repo.js"
 import type{ CourseCreate, CourseUpdate } from "./course.types.js"
+import { ResponseData, ResponseHandler } from "../../utils/response-handler.js"
 
 const createCourse = async(data:CourseCreate)=>{
     try {
         const result = courseRepo.create(data)
+        return new ResponseHandler(new ResponseData(201,"Course Created"))
     } catch (error) {
         throw error
     }
