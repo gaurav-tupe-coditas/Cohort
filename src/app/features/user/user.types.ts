@@ -9,7 +9,7 @@ export type UserRepoFindOptions = FindOptions<
 export type UserRepoUpdateDataOptions = UserRepoCreateData;
 
 export const ZUserObject = z.object({
-  id: z.z.uuid(),
+  id: z.uuid(),
   name: z.string(),
   email: z.email(),
   password: z.string(),
@@ -17,7 +17,10 @@ export const ZUserObject = z.object({
   role_id: z.uuid(),
 });
 
-export const ZUpdateDetailsObject = ZUserObject.omit({id:true,password_version:true})
+export const ZUpdateDetailsObject = ZUserObject.omit({
+  id: true,
+  password_version: true,
+});
 
 export const ZUserRouterCreate = z.object({
   name: z.string(),
@@ -33,16 +36,16 @@ export const orderby_values = z.union([
 ]);
 
 export const ZFindAllUserData = z.object({
-  where:ZUserObject.omit({password:true}).partial().default({}),
+  where: ZUserObject.omit({ password: true }).partial().default({}),
   limit: z.number().default(10),
   offset: z.number().default(0),
   order: orderby_values.optional(),
-  group:orderby_values.optional()
+  group: orderby_values.optional(),
 });
-export const ZFindUserData = ZUserObject.omit({password:true}).partial()
-export type FindUserData = z.infer<typeof ZFindUserData>
+export const ZFindUserData = ZUserObject.omit({ password: true }).partial();
+export type FindUserData = z.infer<typeof ZFindUserData>;
 
-export type FindAllUserData = z.infer<typeof ZFindAllUserData>
+export type FindAllUserData = z.infer<typeof ZFindAllUserData>;
 export type UserRepoCreateData = z.infer<typeof ZUserRouterCreate>;
 
 export type UserRouterCreate = z.infer<typeof ZUserRouterCreate>;
@@ -54,8 +57,8 @@ export const ZUserRouterFindUser = z.object({
 export type UserServiceCreate = z.infer<typeof ZUserRouterCreate>;
 
 export const ZUserUpdateObject = z.object({
-  updateDetails:ZUpdateDetailsObject,
-  findDetails:ZFindUserData
-})
+  updateDetails: ZUpdateDetailsObject,
+  findDetails: ZFindUserData,
+});
 
-export type UserUpdateData = z.infer<typeof ZUserUpdateObject >
+export type UserUpdateData = z.infer<typeof ZUserUpdateObject>;

@@ -24,6 +24,7 @@ RolePermissionSchema.init(
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       allowNull: false,
+      primaryKey:true
     },
     role_id: {
       type: DataTypes.UUID,

@@ -13,7 +13,8 @@ PermissionSchema.init({
     id:{
         type:DataTypes.UUID,
         defaultValue:DataTypes.UUIDV4,
-        allowNull:false
+        allowNull:false,
+        primaryKey:true
     },
     name:{
         type:DataTypes.TEXT,
