@@ -21,7 +21,7 @@ router.post(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const course = await courseService.createCourse(req.body);
-      res.status(201).send(course);
+      res.status(201).send(new ResponseHandler(new ResponseData(201,course)));
     } catch (error) {
       next(error);
     }
@@ -63,6 +63,7 @@ router.delete(
   "/:courseId",
   permissionHandler("manage-courses"),
   params(ZCourseFindParams),
+  instructorOwns,
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const course_id = <string>req.params["courseId"];

@@ -35,6 +35,10 @@ export async function up(queryInterface, Sequelize) {
       type:Sequelize.INTEGER,
       allowNull:true
     },
+    feedback:{
+      type:Sequelize.TEXT,
+      allowNull:true
+    },
     submission_time:{
       type:Sequelize.DATE,
       defaultValue:Sequelize.Sequelize.fn("now"),

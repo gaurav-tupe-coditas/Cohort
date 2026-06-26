@@ -1,20 +1,20 @@
 import z from "zod";
 
 export const ZCourseMaterialCreate = z.object({
-    course_id:z.uuid(),
-    name:z.string().min(1),
-    description:z.string().min(1),
-    url:z.url()
-})
+  course_id: z.uuid(),
+  name: z.string().min(1),
+  description: z.string().min(1),
+});
+export const ZCourseMaterialServiceCreate = ZCourseMaterialCreate.extend({
+  url: z.url(),
+});
 
 export const ZCourseMaterialParams = z.object({
-    courseMaterialId:z.uuid()
-})
+  materialId: z.uuid(),
+});
 
 export const ZCourseParams = z.object({
-    courseId:z.uuid()
-})
+  courseId: z.uuid(),
+});
 
-
-
-export type CourseMaterialCreate = z.infer<typeof ZCourseMaterialCreate>
+export type CourseMaterialCreate = z.infer<typeof ZCourseMaterialServiceCreate>;
