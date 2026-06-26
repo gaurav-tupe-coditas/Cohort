@@ -2,9 +2,7 @@ import type { NextFunction, Request, Response } from "express";
 
 import userService from "../../features/user/user.service.js";
 import jwtService from "./jwt.service.js";
-import { AUTH_RESPONSE } from "../../features/auth/auth.response.js";
 import { TOKEN_RESPONSE } from "./token.response.js";
-import { ErrorResponse } from "../response-handler.js";
 
 
 
