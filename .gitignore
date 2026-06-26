@@ -4,3 +4,6 @@ ERD.pgerd
 dist
 .env
 
+api/api.test.js
+uploads/lecture1.pdf
+uploads/solution.js
