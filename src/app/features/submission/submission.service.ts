@@ -1,5 +1,7 @@
+import { sendGradedNotification } from "../../utils/email.service.js";
 import { ErrorResponse } from "../../utils/response-handler.js";
 import assignmentService from "../assignment/assignment.service.js";
+import userService from "../user/user.service.js";
 import submissionRepo from "./submission.repo.js";
 import type { SubmissionServiceCreate } from "./submission.types.js";
 
@@ -69,9 +71,16 @@ const grade = async (
   updateData: Partial<{ grade: number; feedback: string }>,
 ) => {
   try {
+    const submission = await getSubmission(submissionId)
+    if(!submission)throw new ErrorResponse(404,"No submission exists")
+         const assignement = await assignmentService.findAssignment({id:submission.assignment_id})
+        if(!assignement)throw new ErrorResponse(404,"No Assigment's present ")
     const result = await submissionRepo.update(updateData, {
       where: { id: submissionId },
     });
+   
+    const student = await userService.findUser({id:submission.id})
+    sendGradedNotification(student.email,student.name,assignement.name,updateData.grade,updateData.feedback)
     return result;
   } catch (error) {
     throw error;

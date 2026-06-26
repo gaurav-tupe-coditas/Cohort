@@ -1,10 +1,18 @@
+import { sendEnrollmentNotification } from "../../utils/email.service.js";
 import { ErrorResponse } from "../../utils/response-handler.js"
+import courseService from "../course/course.service.js";
+import userService from "../user/user.service.js";
 import courseenrollmentRepo from "./courseenrollment.repo.js"
 
 const enroll = async(student_id:string,course_id:string)=>{
     try {
+        const course = await courseService.findCourse({id:course_id})
+        if(!course)throw new ErrorResponse(404,"Course doesn't exist")
         const exisiting = await courseenrollmentRepo.findOne({where:{student_id,course_id}})
         if(exisiting)throw new ErrorResponse(409,"Already Enrolled in this course");
+        const user = await userService.findUser({id:student_id})
+        
+        sendEnrollmentNotification(user.email,user.name,course.name)
         return courseenrollmentRepo.create({student_id,course_id})
     } catch (error) {
         throw error

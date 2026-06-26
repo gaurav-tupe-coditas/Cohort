@@ -47,6 +47,7 @@ export const SessionHandler = (server: Server) => {
               message:
                 "You don't have permissions to create rooms for this course",
             });
+            socket.disconnect(true)
             return 
           }
           activeSessions.add(courseId);
@@ -94,6 +95,7 @@ export const SessionHandler = (server: Server) => {
             socket.emit("error", {
               message: "You are not enrolled in this course",
             });
+            socket.disconnect(true)
             return
           }
           socket.join(courseId);
