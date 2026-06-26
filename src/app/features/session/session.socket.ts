@@ -47,6 +47,7 @@ export const SessionHandler = (server: Server) => {
               message:
                 "You don't have permissions to create rooms for this course",
             });
+            return 
           }
           activeSessions.add(courseId);
           socket.join(courseId);
@@ -86,12 +87,14 @@ export const SessionHandler = (server: Server) => {
             socket.emit("error", {
               message: "No active session going for this course",
             });
+            return
           }
           const validUser = await authenticateStudent(accessToken, courseId);
           if (!validUser) {
             socket.emit("error", {
               message: "You are not enrolled in this course",
             });
+            return
           }
           socket.join(courseId);
           console.log(`Socket ${socket.id} joined room: ${courseId}`);
@@ -180,6 +183,7 @@ export const SessionHandler = (server: Server) => {
     );
     socket.on("disconnect", () => {
       console.log(`Socket disconnected: ${socket.id}`);
+      return
     });
   });
   return io;
