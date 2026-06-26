@@ -9,7 +9,8 @@ const envSchema = z.object({
   AWS_REGION:z.string(),
   AMAZON_ACCESSKEYID:z.string(),
   AMAZON_SECRETACCESSKEY:z.string(),
-  SQS_QUEUEURL:z.string()
+  SQS_QUEUEURL:z.string(),
+  GOOGLE_GENERATIVE_AI_API_KEY:z.string()
 });
 
 export const env = envSchema.parse(process.env);
