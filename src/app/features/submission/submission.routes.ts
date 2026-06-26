@@ -20,6 +20,7 @@ import {
 } from "../../utils/response-handler.js";
 import submissionService from "./submission.service.js";
 import { Route } from "../../routes/route.types.js";
+import { InstructorOwnsAssignment } from "../../utils/scoping.js";
 
 const router = Router();
 
@@ -70,6 +71,7 @@ router.get(
   "/assignment/:assignmentId",
   permissionHandler("manage-courses"),
   params(ZAssignmentParams),
+  InstructorOwnsAssignment,
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const assignment_id = <string>req.params["assignmentId"];

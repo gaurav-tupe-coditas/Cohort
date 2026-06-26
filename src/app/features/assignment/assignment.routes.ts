@@ -12,7 +12,11 @@ import {
   ZAssignmentUpdate,
   ZCourseParams,
 } from "./assignment.types.js";
-import { instructorOwns, studentEnrolled } from "../../utils/scoping.js";
+import {
+  instructorOwns,
+  InstructorOwnsAssignment,
+  studentEnrolled,
+} from "../../utils/scoping.js";
 import assignmentService from "./assignment.service.js";
 import { ResponseData, ResponseHandler } from "../../utils/response-handler.js";
 import { Route } from "../../routes/route.types.js";
@@ -46,9 +50,11 @@ router.get(
       const assignment = await assignmentService.findAllAssignments({
         course_id,
       });
-      res.status(200).send(new ResponseHandler(new ResponseData(200,assignment)));
+      res
+        .status(200)
+        .send(new ResponseHandler(new ResponseData(200, assignment)));
     } catch (error) {
-      throw error;
+      next(error);
     }
   },
 );
@@ -58,10 +64,11 @@ router.patch(
   permissionHandler("manage-courses"),
   params(ZAssignmentParams),
   body(ZAssignmentUpdate),
+  InstructorOwnsAssignment,
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const assignment_id = <string>req.params["assignmentId"];
-      const response = assignmentService.updateAssignment(
+      const response = await assignmentService.updateAssignment(
         assignment_id,
         req.body,
       );
