@@ -5,4 +5,5 @@ export interface Question{
     askedByName:string;
     text:string;
     answer:string | null;
+    resolved?:boolean
 }

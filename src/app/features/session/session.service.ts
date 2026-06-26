@@ -21,10 +21,11 @@ export const answerQuestion = (courseId:string,questionId:string,answer:string)=
         courseQuestions.forEach(question=>{
             if(question.id==questionId){
                 question.answer = answer
+                question.resolved=true
                 return;
             }
         })
     } catch (error) {
-        
+        throw error
     }
 }
