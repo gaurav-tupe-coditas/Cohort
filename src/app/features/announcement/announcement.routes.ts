@@ -2,7 +2,7 @@ import { Router, type NextFunction, type Request, type Response } from "express"
 import { permissionHandler } from "../role and permissions/permission.handler.js";
 import { ZAnnoucementParams, ZAnnouncementCreate, ZCourseParams } from "./announcement.types.js";
 import { body, params } from "../../utils/validate.js";
-import { instructorOwns, studentEnrolled } from "../../utils/scoping.js";
+import { instructorOwns, InstructorOwnsAnnouncement, studentEnrolled } from "../../utils/scoping.js";
 import announcementService from "./announcement.service.js";
 import { ResponseData, ResponseHandler } from "../../utils/response-handler.js";
 import { Route } from "../../routes/route.types.js";
@@ -30,7 +30,7 @@ router.get("/course/:courseId",params(ZCourseParams),studentEnrolled,async(req:R
     }
 })
 //Scoper to check whether the instructor teaches this course which has this assignment id
-router.delete("/:announcementId",permissionHandler("manage-courses"),params(ZAnnoucementParams),instructorOwns,async(req:Request,res:Response,next:NextFunction)=>{
+router.delete("/:announcementId",permissionHandler("manage-courses"),params(ZAnnoucementParams),InstructorOwnsAnnouncement,async(req:Request,res:Response,next:NextFunction)=>{
     try {
         const id = <string>req.params["announcementId"]
         const response = await announcementService.deleteAnnouncemet(id)

@@ -11,7 +11,7 @@ import {
   ZCourseMaterialParams,
   ZCourseParams,
 } from "./coursematerial.types.js";
-import { instructorOwns, studentEnrolled } from "../../utils/scoping.js";
+import { instructorOwns, instructorOwnsCourseMaterial, studentEnrolled } from "../../utils/scoping.js";
 import coursematerialService from "./coursematerial.service.js";
 import {
   ErrorResponse,
@@ -68,7 +68,7 @@ router.delete(
   "/:materialId",
   permissionHandler("manage-courses"),
   params(ZCourseMaterialParams),
-  instructorOwns,
+  instructorOwnsCourseMaterial,
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = <string>req.params["materialId"];

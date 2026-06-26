@@ -19,6 +19,15 @@ return result
 }
 }
 
+const findAnnouncement = async(id:string)=>{
+    try {
+        const result = await announcementRepo.findOne({where:{id}});
+        return result
+    } catch (error) {
+        throw error
+    }
+}
+
 const deleteAnnouncemet = async(id:string)=>{
     try {
         const result = announcementRepo.destroy({where:{id}})
@@ -28,4 +37,4 @@ const deleteAnnouncemet = async(id:string)=>{
     }
 }
 
-export default{createAnnouncements,getCourseAnnouncements,deleteAnnouncemet}
+export default{createAnnouncements,getCourseAnnouncements,deleteAnnouncemet,findAnnouncement}

@@ -5,7 +5,7 @@ import { ResponseData, ResponseHandler } from "../../utils/response-handler.js"
 
 const createCourse = async(data:CourseCreate)=>{
     try {
-        const result = courseRepo.create(data)
+        const result = await courseRepo.create(data)
         return new ResponseHandler(new ResponseData(201,"Course Created"))
     } catch (error) {
         throw error

@@ -5,6 +5,7 @@ import courseenrollmentService from "../features/courseenrollment/courseenrollme
 import assignmentService from "../features/assignment/assignment.service.js";
 import submissionService from "../features/submission/submission.service.js";
 import coursematerialService from "../features/coursematerial/coursematerial.service.js";
+import announcementService from "../features/announcement/announcement.service.js";
 
 export const instructorOwns = async (
   req: Request,
@@ -128,6 +129,37 @@ export const instructorOwnsCourseMaterial = async (
       throw new ErrorResponse(
         403,
         "You do not own the course this material belongs to",
+      );
+
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const InstructorOwnsAnnouncement = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const announcement_id = req.params["announcementId"] as string;
+    if (!announcement_id)
+      throw new ErrorResponse(400, "announcementId is required");
+
+    const announcement =
+      await announcementService.findAnnouncement(announcement_id);
+    if (!announcement) throw new ErrorResponse(404, "Announcement not found");
+
+    const course = await courseService.findCourse({
+      id: announcement.course_id,
+    });
+    if (!course) throw new ErrorResponse(404, "Course not found");
+
+    if (course.instructor_id !== req.user.userId)
+      throw new ErrorResponse(
+        403,
+        "You do not own the course this announcement belongs to",
       );
 
     next();
